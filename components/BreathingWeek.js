@@ -5,18 +5,24 @@ import StdButton from "./StdButton";
 import { CheckBox } from "react-native";
 // import CheckBox from '@react-native-community/checkbox';  // Doesnt work!
 import { content } from "./../utils/breathing_content";
+import { initProgress } from "./../utils/initProgress";
 
 export default function BreathingWeek({ navigation, route }) {
   const ctx = useContext(AsyncStoreContext);
   const week = Number(route.name.match(/\d+/).join()); // extract digit from string
+  const enableUnlock = [...ctx.progress[week]].reduce((a, c) => a && c); // if all checkboxes are checked in this week
+  const buttonText =
+    week < ctx.progress.max ? "RESET PROGRAM" : `UNLOCK WEEK ${week + 1}`;
 
-  // console.log("in BreathingWeek  ", week, ctx, route);
+  // console.log("in BreathingWeek  ", ctx.progress[week], enableUnlock);
 
-  const unlockHandler = (x) => {
-    const o = {};
-    o[week+1] = {};
-    console.log('about to pers ', o)
-    ctx.saveAndPersistProgress(o);
+  const resetProgramHandler = () => {
+    const newProgress = initProgress();
+    ctx.saveAndPersistProgress();
+  };
+
+  const unlockHandler = () => {
+    ctx.saveAndPersistProgress({ max: week + 1 });
   };
 
   // Do not navigate to this screen via tab press if pre-requisites not met
@@ -35,30 +41,46 @@ export default function BreathingWeek({ navigation, route }) {
         </Text>
       ))}
 
-      {content[week].checkoffs.map((lineOfText, i) => {
-        // const chk = ctx.progress[week][i];
-        // console.log(ctx.progress[week])
-        return (
-        <View   key={i} style={styles.checkoffsContainer}>
-          <CheckBox
-            // value={!!ctx.progress[week][i]}
-            // onValueChange={ctx.saveAndPersistProgress({})}
-            style={styles.checkbox}
-          />
-          <Text key={i} style={[styles.txt]}>
-            {content[week].checkoffs[i]}
-          </Text>
-        </View>
-      )}
-      )}
+      <View style={{marginTop: 15, marginBottom: 40}}>
+        {content[week].checkoffs.map((lineOfText, i) => {
+          const chk = ctx.progress[week][i];
+          const o = {};
+          o[week] = ctx.progress[week];
 
+          return (
+            <View key={i} style={styles.checkoffsContainer}>
+              <CheckBox
+                value={chk}
+                onValueChange={() => {
+                  o[week][i] = !o[week][i];
+                  ctx.saveAndPersistProgress(o);
+                }}
+                style={styles.checkbox}
+              />
+              <Text
+                key={i}
+                style={[
+                  styles.txt,
+                  styles.chktxt,
+                  o[week][i] ? styles.txtChecked : styles.txtUnchecked,
+                ]}
+              >
+                {content[week].checkoffs[i]}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
       <View style={styles.buttons}>
         <StdButton
-          bkgdColor="#6C49FF"
+          bkgdColor={enableUnlock ? "#6C49FF" : "#979797"}
           txtColor="#fff"
-          clickHandler={unlockHandler}
+          clickHandler={
+            week < ctx.progress.max ? resetProgramHandler : unlockHandler
+          }
+          disabled={!enableUnlock}
         >
-          UNLOCK WEEK {week+1}
+          {buttonText}
         </StdButton>
       </View>
     </View>
@@ -68,30 +90,38 @@ export default function BreathingWeek({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     backgroundColor: "#161524",
-    padding: 20,
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   txt: {
-    color: "#fff",
     fontSize: 14,
+    color: "#fff",
+    marginBottom: 10,
+  },
+  chktxt: {
+    marginLeft: 10,
+    marginTop: -5,
+  },
+  txtChecked: {
+    color: "#777",
+  },
+  txtUnchecked: {
+    color: "#fff",
   },
   heading: {
     fontWeight: "600",
     fontSize: 17,
   },
   buttons: {
-    flexDirection: "column",
-    justifyContent: "space-between",
+    display: 'fixed',
+    bottom: 20,
     alignItems: "center",
-    height: 140,
   },
   checkoffsContainer: {
     flexDirection: "row",
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 15,
   },
-  checkbox: {
-    // alignSelf: "center",
-  },
+  checkbox: {},
 });

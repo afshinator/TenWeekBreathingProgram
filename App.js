@@ -7,15 +7,8 @@ import {
   setStoredProgress,
 } from "./utils/AsyncStoreContext";
 import { NavigationContainer } from "@react-navigation/native";
-import TenWeekBreathingProgram from './components/TenWeekBreathingProgram';
-import { initProgress } from './utils/initProgress';
-
-// const findFurthestProgress = (p) => {  // used to set which tab to initially open
-//   for (let i=10; i > 0; i--) {
-//     if ( p[i] ) return `Week${i}`
-//   }
-//   return 'Intro'
-// }
+import TenWeekBreathingProgram from "./components/TenWeekBreathingProgram";
+import { initProgress } from "./utils/initProgress";
 
 export default function App() {
   const [progress, setProgress] = useState({}); // progress will hold the users progress through the program(s)
@@ -26,12 +19,15 @@ export default function App() {
     setProgress({ ...progress, ...val });
   };
 
-  const start = async () => { // Upon app mount, get progress from AsyncStorage
+  const start = async () => {
+    // Upon app mount, get progress from AsyncStorage
     let val = await getStoredProgress();
-    console.log("val ", val);
+    // console.log("val ", val);
 
-    if (val === null) { // Nothing in AsyncStorage, then its first launch
+    if (val === null) {
+      // Nothing in AsyncStorage, then its first launch
       val = initProgress();
+      // console.log("initial progress val set ", val);
     } else {
       val["launches"]++;
     }
@@ -40,19 +36,22 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Do this stuff once on component mount
-    start();
+    start(); // Do this stuff once on component mount
   }, []);
 
+  const initialTab = progress.max ? `Week${progress.max}` : "Intro"; // TODO: use setTimeout to do this manually
 
   return (
     <AsyncStoreContext.Provider value={{ progress, saveAndPersistProgress }}>
-      <View style={styles.container}>
-        <NavigationContainer>
-          <TenWeekBreathingProgram progress={progress} initialTab={progress.max}/>
-        </NavigationContainer>
-        <StatusBar hidden="true" style="auto" />
-      </View>
+      <NavigationContainer>
+        <View data-id="me" style={styles.container}>
+          <TenWeekBreathingProgram
+            progress={progress}
+            initialTab={initialTab}
+          />
+          <StatusBar hidden="true" style="auto" />
+        </View>
+      </NavigationContainer>
     </AsyncStoreContext.Provider>
   );
 }
@@ -60,7 +59,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#161524",
-
+    height: "100%",
   },
 });

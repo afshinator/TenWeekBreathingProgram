@@ -7,34 +7,7 @@ import BreathingWeek from './BreathingWeek';
 
 const Tab = createMaterialTopTabNavigator();
 
-// function HomeScreen() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Text>Home!</Text>
-//     </View>
-//   );
-// }
-
-// function SettingsScreen(props) {
-//   console.log('props ?? ', props);
-//   return (
-//     <View
-//       style={{
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         // backgroundColor: '#161524',
-//       }}
-//     >
-//       <Text>Settings!</Text>
-//     </View>
-//   );
-// }
-
-
 export default function TenWeekBreathingProgram( props ) {
-  console.log('initial tab should be ', props.initialTab)
-
   return (
     <View style={styles.bkgd}>
       <TopSection />
@@ -43,7 +16,7 @@ export default function TenWeekBreathingProgram( props ) {
         <Tab.Navigator
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            backgroundColor: '#161524', // seems to get rid of right white vertical line in tab area
+            // backgroundColor: '#161524', // seems to get rid of right white vertical line in tab area
           }}
           initialRouteName={props.initialTab}
           tabBarOptions={{
@@ -61,7 +34,7 @@ export default function TenWeekBreathingProgram( props ) {
             },
             activeTintColor: 'white',
             inactiveTintColor: 'gray',
-            // scrollEnabled: true,
+            // scrollEnabled: true,   // TODO:
           }}
         >
           <Tab.Screen name="Intro" component={BreathingIntro} />
@@ -82,5 +55,16 @@ export default function TenWeekBreathingProgram( props ) {
 }
 
 const styles = StyleSheet.create({
-
+  bkgd: {
+    flex: 1,
+    height: '100%'
+  },
+  contentBox: {
+    backgroundColor: '#161524',
+    paddingTop: 40,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    marginTop: -30,
+    flexBasis: '100%'
+  }
 });

@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useLinkProps } from '@react-navigation/native';
 
 
-export default function StdButton({bkgdColor, txtColor, children, clickHandler}) {
+export default function StdButton({bkgdColor, txtColor, children, clickHandler, disabled}) {
   const containerBkgd = bkgdColor ? { backgroundColor: bkgdColor } : { backgroundColor: '#fff'}
   const textColor = txtColor ? { color: txtColor } : { color: '#000' }
 
   return (
-    <TouchableOpacity style={[styles.container, containerBkgd]} onPress={clickHandler}>
+    <TouchableOpacity style={[styles.container, containerBkgd]} onPress={clickHandler} disabled={disabled}>
       <Text style={[styles.txt, textColor]} >
         {children}
       </Text>

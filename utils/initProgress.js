@@ -8,7 +8,7 @@ export const initProgress = (begunOverride, maxOverride, launchesOverride) => {
 
   const obj = {                       // 
     begun: begunOverride || false,
-    max: maxOverride || 1,
+    max: maxOverride || 0,
     launches: launchesOverride || 1,
   };
 

@@ -4,6 +4,7 @@ A React Native implementation of a guided checklist...
 
 ## Log
 
+
 - Initialized project with expo, the default RN configuration.
 
     expo init tenWeekBreathing
@@ -29,7 +30,7 @@ A React Native implementation of a guided checklist...
   yarn add @react-native-community/checkbox
 
   This was failing... Module not found: Can't resolve '@react-native-community/checkbox',
-  so I'm going to use the deprecated checkbox which should be fine.
+  so I'm going to use the deprecated checkbox which is not as good because you can't style it.
 
   <em>TODO:</em> come back and figure out why it doesnt work.
 
