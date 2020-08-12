@@ -1,8 +1,27 @@
 # TenWeekProgramMobile
-A React Native implementation of a guided checklist...
+
+###A React Native implementation of a guided checklist...
+
+### Whats left:
+
+  -- Tab Bar customization; the underline doesnt behave well out of the box
+  -- The Reset Program button functionality
+  -- Finishing functionality: The Congrats text, ...
+  -- misc css
+  -- The ability to add hyperlinks in the text on the screens
+  -- Explore problems I had with react-native-checkbox and my dev envt
+
+### Problems I had:
+
+  -- Sketch didnt run on windows, I import the file into Figma
+  -- Even though I extract exact font sizes, the nature of mobile makes things look relatively different on real device
+  -- updating Expo client on my phone crashes everytime I push code to it, even boilerplate code
+  -- Time constraint led me to not ask questions I would've asked if this was a real project:
+      -- What element of the design have to be pixel perfect?
+      -- What elements can stand to look somewhat different?
 
 
-## Log
+### Log
 
 
 - Initialized project with expo, the default RN configuration.
