@@ -22,4 +22,9 @@ A React Native implementation of a guided checklist...
 
   yarn add @react-navigation/material-top-tabs react-native-tab-view
 
-  
+- The mocks require each weeks screen to have the same top section with the stylized concentric circles.   I can't run Sketch (requires a Mac w/ OS 14.14.4 and I have an older one that cant run that OS, and a windows machine), but I was able to to pull in the sketch file into Figma.   I'm no Figma expert, I didn't find a way to export that background area with the overlaid design - but I was able to extract that image (screen capture + photoshop) and lay it out so that it matches the look in the mocks as far as possible given the variety of devices sizes.  In the best case it'd be nice to have a designer around who can just give me these assets, one lower res and one higher...
+
+
+
+
+
