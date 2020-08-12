@@ -5,13 +5,22 @@ import StdButton from "./StdButton";
 
 
 
-export default function BreathingIntro() {
+export default function BreathingIntro({navigation}) {
   const ctx = useContext(AsyncStoreContext);
   console.log("in breathing intro ", ctx);
 
   const beginButtonHandler = (x) => {
-    ctx.saveAndPersistProgress({begun: true})
+    ctx.saveAndPersistProgress({begun: true, 1: {}})
   }
+
+  // Do not navigate to this screen via tab press if pre-requisites not met
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('tabPress', e => {
+      if ( ctx.progress['begun'] === false ) 
+        e.preventDefault();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

@@ -32,7 +32,8 @@ function SettingsScreen(props) {
 }
 
 
-export default function TenWeekBreathing(props) {
+export default function TenWeekBreathingProgram( props ) {
+  console.log('initial tab should be ', props.initialTab)
 
   return (
     <View style={styles.bkgd}>
@@ -42,8 +43,9 @@ export default function TenWeekBreathing(props) {
         <Tab.Navigator
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            backgroundColor: '#161524', // seems to get rid of right white line in tab area
+            backgroundColor: '#161524', // seems to get rid of right white vertical line in tab area
           }}
+          initialRouteName={props.initialTab}
           tabBarOptions={{
             tabStyle: {
               width: 60,

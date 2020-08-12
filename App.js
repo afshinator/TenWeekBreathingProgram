@@ -7,7 +7,14 @@ import {
   setStoredProgress,
 } from "./utils/AsyncStoreContext";
 import { NavigationContainer } from "@react-navigation/native";
-import TenWeekBreathing from './components/BreathingProgram';
+import TenWeekBreathingProgram from './components/TenWeekBreathingProgram';
+
+const findFurthestProgress= (p) => {  // used to set which tab to initially open
+  for (let i=10; i > 0; i--) {
+    if ( p[i] ) return `Week${i}`
+  }
+  return 'Intro'
+}
 
 export default function App() {
   const [progress, setProgress] = useState({}); // progress will hold the users progress through the program(s)
@@ -39,11 +46,13 @@ export default function App() {
     start();
   }, []);
 
+  const furthestProgress = findFurthestProgress(progress)
+
   return (
     <AsyncStoreContext.Provider value={{ progress, saveAndPersistProgress }}>
       <View style={styles.container}>
         <NavigationContainer>
-          <TenWeekBreathing />
+          <TenWeekBreathingProgram progress={progress} initialTab={furthestProgress}/>
         </NavigationContainer>
         <StatusBar hidden="true" style="auto" />
       </View>
