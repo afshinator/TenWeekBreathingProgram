@@ -3,8 +3,6 @@ import { StyleSheet, Text, View } from "react-native";
 import { AsyncStoreContext } from "./../utils/AsyncStoreContext";
 import StdButton from "./StdButton";
 
-
-
 export default function BreathingIntro({navigation}) {
   const ctx = useContext(AsyncStoreContext);
   console.log("in breathing intro ", ctx);

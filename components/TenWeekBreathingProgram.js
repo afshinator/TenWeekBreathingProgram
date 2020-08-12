@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import BreathingIntro from './BreathingIntro';
 import TopSection from './TopSection';
-
+import BreathingIntro from './BreathingIntro';
+import BreathingWeek from './BreathingWeek';
 
 const Tab = createMaterialTopTabNavigator();
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
+// function HomeScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Home!</Text>
+//     </View>
+//   );
+// }
 
-function SettingsScreen(props) {
-  console.log('props ?? ', props);
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // backgroundColor: '#161524',
-      }}
-    >
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+// function SettingsScreen(props) {
+//   console.log('props ?? ', props);
+//   return (
+//     <View
+//       style={{
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         // backgroundColor: '#161524',
+//       }}
+//     >
+//       <Text>Settings!</Text>
+//     </View>
+//   );
+// }
 
 
 export default function TenWeekBreathingProgram( props ) {
@@ -65,13 +65,16 @@ export default function TenWeekBreathingProgram( props ) {
           }}
         >
           <Tab.Screen name="Intro" component={BreathingIntro} />
-          <Tab.Screen name="Week1" component={SettingsScreen} />
-          <Tab.Screen name="Week2" component={HomeScreen} />
-          <Tab.Screen name="Week3" component={SettingsScreen} />
-          <Tab.Screen name="Week4" component={HomeScreen} />
-          <Tab.Screen name="Week5" component={SettingsScreen} />
-          <Tab.Screen name="Week6" component={HomeScreen} />
-          <Tab.Screen name="Week7" component={SettingsScreen} />
+          <Tab.Screen name="Week1" component={BreathingWeek} />
+          <Tab.Screen name="Week2" component={BreathingWeek} />
+          <Tab.Screen name="Week3" component={BreathingWeek} />
+          <Tab.Screen name="Week4" component={BreathingWeek} />
+          <Tab.Screen name="Week5" component={BreathingWeek} />
+          <Tab.Screen name="Week6" component={BreathingWeek} />
+          <Tab.Screen name="Week7" component={BreathingWeek} />
+          <Tab.Screen name="Week8" component={BreathingWeek} />
+          <Tab.Screen name="Week9" component={BreathingWeek} />
+          <Tab.Screen name="Week10" component={BreathingWeek} />
         </Tab.Navigator>
       </View>
     </View>
