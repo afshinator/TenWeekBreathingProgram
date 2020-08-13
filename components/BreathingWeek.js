@@ -10,11 +10,11 @@ import { initProgress } from "./../utils/initProgress";
 export default function BreathingWeek({ navigation, route }) {
   const ctx = useContext(AsyncStoreContext);
   const week = Number(route.name.match(/\d+/).join()); // extract digit from string
-  const enableUnlock = [...ctx.progress[week]].reduce((a, c) => a && c); // if all checkboxes are checked in this week
+  const enableUnlock = true; // TODO: [...ctx.progress[week]].reduce((a, c) => a && c); // if all checkboxes are checked in this week
   const buttonText =
     week < ctx.progress.max ? "RESET PROGRAM" : `UNLOCK WEEK ${week + 1}`;
 
-  // console.log("in BreathingWeek  ", ctx.progress[week], enableUnlock);
+  console.log("in BreathingWeek  ",week, ctx, enableUnlock);
 
   const resetProgramHandler = () => {
     const newProgress = initProgress();
@@ -32,6 +32,8 @@ export default function BreathingWeek({ navigation, route }) {
     });
     return unsubscribe;
   }, [navigation, ctx.progress]);
+
+return null;
 
   return (
     <View style={styles.container}>

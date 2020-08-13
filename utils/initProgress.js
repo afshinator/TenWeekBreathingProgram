@@ -18,6 +18,6 @@ export const initProgress = (begunOverride, maxOverride, launchesOverride) => {
       obj[i][j] = false;
     }
   }
-
+console.log('initialized to ', obj)
   return obj;
 };
