@@ -1,7 +1,7 @@
 import React from "react"
 import AsyncStorage from '@react-native-community/async-storage';
 
-const TEN_WEEK_PROGRAM_KEY = 'user_progress-aa';   // tweak this for testing purposes
+const TEN_WEEK_PROGRAM_KEY = 'user_progress-ab';   // tweak this for testing purposes
 
 export const setStoredProgress = async (value) => {
   try {
