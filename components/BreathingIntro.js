@@ -3,27 +3,29 @@ import { StyleSheet, Text, View, Linking } from "react-native";
 import { AsyncStoreContext } from "./../utils/AsyncStoreContext";
 import StdButton from "./StdButton";
 
-export default function BreathingIntro({navigation}) {
+export default function BreathingIntro({ navigation }) {
   const ctx = useContext(AsyncStoreContext);
-  // console.log("in breathing intro ", ctx);
+  console.log("in breathing intro ", ctx);
 
   const beginButtonHandler = () => {
-    if ( ctx.progress.max < 1 ) ctx.saveAndPersistProgress({begun: true, max: 1})
-    navigation.jumpTo('Week1');
-  }
+    if (ctx.progress.max < 1)
+      ctx.dispatch({ type: "UPDATE", payload: { begun: true, max: 1 } });
+    navigation.jumpTo("Week1");
+  };
 
   const amazonButtonHandler = () => {
-    Linking.openURL('https://amazon.com')
-  }
+    Linking.openURL("https://amazon.com");
+  };
 
   // Do not navigate to this screen via tab press if pre-requisites not met
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener('tabPress', e => {
-      if ( ctx.progress['begun'] === false ) 
-        e.preventDefault();
+    const unsubscribe = navigation.addListener("tabPress", (e) => {
+      if (ctx.progress["begun"] === false) e.preventDefault();
     });
     return unsubscribe;
   }, [navigation]);
+
+  const btnText = ctx.progress.max > 0 ? 'RESUME PROGRAM' : 'BEGIN PROGRAM'
 
   return (
     <View style={styles.container}>
@@ -48,10 +50,16 @@ export default function BreathingIntro({navigation}) {
         elementum.
       </Text>
       <View style={styles.buttons}>
-        <StdButton bkgdColor="#6C49FF" txtColor="#fff" clickHandler={beginButtonHandler}>
-          BEGIN PROGRAM
+        <StdButton
+          bkgdColor="#6C49FF"
+          txtColor="#fff"
+          clickHandler={beginButtonHandler}
+        >
+          {btnText}
         </StdButton>
-        <StdButton clickHandler={amazonButtonHandler}>ORDER ON AMAZON</StdButton>
+        <StdButton clickHandler={amazonButtonHandler}>
+          ORDER ON AMAZON
+        </StdButton>
       </View>
     </View>
   );
@@ -73,8 +81,8 @@ const styles = StyleSheet.create({
   },
   buttons: {
     marginTop: 50,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    flexDirection: "column",
+    justifyContent: "space-between",
     alignItems: "center",
     height: 140,
   },
