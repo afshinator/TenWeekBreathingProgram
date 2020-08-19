@@ -10,19 +10,20 @@ import { initProgress } from "./../utils/initProgress";
 export default function BreathingWeek({ navigation, route }) {
   const ctx = useContext(AsyncStoreContext);
   const week = Number(route.name.match(/\d+/).join()); // extract digit from string
-  const enableUnlock = true; // TODO: [...ctx.progress[week]].reduce((a, c) => a && c); // if all checkboxes are checked in this week
-  const buttonText =
-    week < ctx.progress.max ? "RESET PROGRAM" : `UNLOCK WEEK ${week + 1}`;
+  const enableUnlock =  [...ctx.progress[week]].reduce((a, c) => a && c); // if all checkboxes are checked in this week
+  // const buttonText =
+  //   week < ctx.progress.max ? "RESET PROGRAM" : `UNLOCK WEEK ${week + 1}`;
 
-  console.log("in BreathingWeek  ",week, ctx, enableUnlock);
+  // console.log("in BreathingWeek  ",week, ctx, enableUnlock);
 
   const resetProgramHandler = () => {
-    const newProgress = initProgress();
-    ctx.saveAndPersistProgress();
+    // const newProgress = initProgress();
+    // ctx.saveAndPersistProgress();
+    // TODO:
   };
 
   const unlockHandler = () => {
-    ctx.saveAndPersistProgress({ max: week + 1 });
+    ctx.dispatch({ type: "UPDATE", payload: { max: week + 1 } });
   };
 
   // Do not navigate to this screen via tab press if pre-requisites not met
@@ -32,8 +33,6 @@ export default function BreathingWeek({ navigation, route }) {
     });
     return unsubscribe;
   }, [navigation, ctx.progress]);
-
-return null;
 
   return (
     <View style={styles.container}>
@@ -55,7 +54,8 @@ return null;
                 value={chk}
                 onValueChange={() => {
                   o[week][i] = !o[week][i];
-                  ctx.saveAndPersistProgress(o);
+                  // ctx.saveAndPersistProgress(o);
+                  ctx.dispatch({ type: "UPDATE", payload: o });
                 }}
                 style={styles.checkbox}
               />
@@ -82,7 +82,7 @@ return null;
           }
           disabled={!enableUnlock}
         >
-          {buttonText}
+          {`UNLOCK WEEK ${week}`}
         </StdButton>
       </View>
     </View>

@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import TopSection from './TopSection';
-import BreathingIntro from './BreathingIntro';
-import BreathingWeek from './BreathingWeek';
+import React, { useState, useEffect } from "react";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { AsyncStoreContext } from "./../utils/AsyncStoreContext";
+import TopSection from "./TopSection";
+import BreathingIntro from "./BreathingIntro";
+import BreathingWeek from "./BreathingWeek";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function TenWeekBreathingProgram( props ) {
+export default function TenWeekBreathingProgram(props) {
+  const storedState = React.useContext(AsyncStoreContext);
+
+  if (!storedState.progress || Object.keys(storedState.progress) < 1)
+    return null;
+
+  console.log("in 10week, storedState: ", storedState);
   return (
     <View style={styles.bkgd}>
       <TopSection />
@@ -15,25 +22,27 @@ export default function TenWeekBreathingProgram( props ) {
       <View style={styles.contentBox}>
         <Tab.Navigator
           // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            // backgroundColor: '#161524', // seems to get rid of right white vertical line in tab area
-          }}
+          style={
+            {
+              // backgroundColor: '#161524', // seems to get rid of right white vertical line in tab area
+            }
+          }
           initialRouteName={props.initialTab}
           tabBarOptions={{
             tabStyle: {
               width: 60,
             },
             indicatorStyle: {
-              backgroundColor: '#00FFFF',
+              backgroundColor: "#00FFFF",
             },
             style: {
-              backgroundColor: '#161524', // sets bkgd of tab bar
+              backgroundColor: "#161524", // sets bkgd of tab bar
             },
             labelStyle: {
-              textTransform: 'none',
+              textTransform: "none",
             },
-            activeTintColor: 'white',
-            inactiveTintColor: 'gray',
+            activeTintColor: "white",
+            inactiveTintColor: "gray",
             // scrollEnabled: true,   // TODO:
           }}
         >
@@ -57,14 +66,14 @@ export default function TenWeekBreathingProgram( props ) {
 const styles = StyleSheet.create({
   bkgd: {
     flex: 1,
-    height: '100%'
+    height: "100%",
   },
   contentBox: {
-    backgroundColor: '#161524',
+    backgroundColor: "#161524",
     paddingTop: 40,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     marginTop: -30,
-    flexBasis: '100%'
-  }
+    flexBasis: "100%",
+  },
 });
